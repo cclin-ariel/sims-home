@@ -1,23 +1,24 @@
 <template>
-  <!-- component -->
-  <Header />
+  <div>
+    <Header />
 
-  <!-- <div class="flex w-full h-screen">
-    <SideBar />
-    <section class="w-full p-4">
-      <div class="w-full h-64 border-dashed border-4 p-4 text-md">
-        Dashboard
-      </div>
-    </section>
-  </div> -->
+    <div class="flex w-full h-screen">
+      <Sidebar />
+      <section class="w-full p-4">
+          dashboard
+            <router-view />
+
+      </section>
+    </div>
+  </div>
 </template>
 <script>
 import Header from "./Header.vue";
-import SideBar from "./SideBar.vue";
+import Sidebar from "./Sidebar.vue";
 export default {
   components: {
     Header,
-    SideBar,
+    Sidebar,
   },
 };
 </script>
