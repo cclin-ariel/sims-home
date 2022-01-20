@@ -8,6 +8,8 @@ import DashBoard from "../components/DashBoard.vue";
 
 // customer page
 import Home from "../components/customer/Home.vue";
+import ShopProduct from "../components/customer/ShopProduct.vue";
+import ShopInspirationIdea from "../components/customer/ShopInspirationIdea.vue";
 
 Vue.use(VueRouter);
 
@@ -66,10 +68,21 @@ const routes = [
   //     }
   //   ]
   // },
-  { 
-    path: '/sims_home', 
-    name: 'Home', 
-    component: Home }
+  {
+    path: "/sims_home",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/sims_home/shop_product",
+    name: "ShopProduct",
+    component: ShopProduct,
+  },
+  {
+    path: "/sims_home/shop_inspirationIdea",
+    name: "ShopInspirationIdea",
+    component: ShopInspirationIdea,
+  },
 ];
 
 const router = new VueRouter({

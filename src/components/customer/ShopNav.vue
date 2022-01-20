@@ -1,7 +1,7 @@
 <template>
-  <div class="md:w-full lg:w-10/12 fixed">
+  <div class="w-full fixed bg-white z-50">
     <!-- header -->
-    <div class="flex justify-between py-4 mt-2">
+    <div class="flex justify-around py-5 mt-2">
       <div class="flex">
         <!-- leaf logo -->
         <div class="rounded-full w-7 h-7">
@@ -128,16 +128,25 @@
             </metadata>
           </svg>
         </div>
-        <div class="uppercase pl-2">inspiration</div>
+        <div class="uppercase pl-2 font-mono self-center">inspiration</div>
       </div>
-      <div class="uppercase text-2xl">sims-home</div>
-      <div class="flex">
-        <div class="search uppercase">search <i class="fas fa-search"></i></div>
-        <div class="shop-cart md:pl-3"><i class="fas fa-shopping-cart"></i></div>
+      <div class="uppercase text-2xl font-serif text-3xl">sims-home</div>
+      <div class="flex font-mono self-center">
+        <div class="search uppercase ">search <i class="fas fa-search"></i></div>
+        <div class="shop-cart md:pl-3">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
       </div>
+      <div class="md:hidden">
+        <button><i class="fas fa-bars"></i></button>
+      </div>
+         <!-- division line -->
     </div>
+    <div class="md:hidden block border-b w-full"></div>
     <!-- nav -->
-    <div class="nav border-t border-b py-2">
+    <div
+      class="nav border-t border-b py-2 lg:px-32 md:px-auto px-2 font-mono hidden md:block"
+    >
       <ul class="flex flex-row justify-around">
         <li class="uppercase">sale!</li>
         <li class="uppercase">bedding</li>
@@ -146,7 +155,7 @@
         <li class="uppercase">living</li>
         <li class="uppercase">dining</li>
         <li class="uppercase">outdoor</li>
-        <li class="uppercase">light & decor</li>
+        <li class="uppercase">light &amp; decor</li>
         <li class="uppercase">art</li>
       </ul>
     </div>
