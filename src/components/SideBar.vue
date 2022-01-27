@@ -1,8 +1,8 @@
 <template>
-  <aside class="w-60 h-screen shadow-md hidden sm:block text-bgColor">
-    <div class="flex flex-col h-screen p-4 bg-mainColor">
+  <aside class="w-60 shadow-md hidden sm:block text-bgColor">
+    <div class="flex h-full flex-col p-4 bg-mainColor">
       <span class="mb-2 pb-1 text-base"
-        ><i class="fas fa-tasks pr-1"></i> Order Management</span
+        ><i class="fas fa-tasks pr-1"></i>Management</span
       >
       <div class="text-sm">
         <router-link to="/admin/products">
@@ -24,15 +24,6 @@
           </div>
         </router-link>
 
-        <!-- <div
-            class="bg-gray-900 flex justify-between items-center  p-2 rounded mt-2 cursor-pointer hover:bg-gray-700 hover:text-blue-300"
-          >
-            <span>Reports</span>
-            <span
-              class="w-4 h-4 bg-blue-600 rounded-full  text-center font-normal text-xs"
-              >5</span
-            >
-          </div> -->
         <router-link to="/admin/coupon_list" class="nav-link" href="#">
           <div
             class="bg-gray-500 p-2 rounded mt-2 cursor-pointer hover:bg-gray-400"
@@ -48,7 +39,7 @@
         ><i class="fas fa-poll-h pr-2"></i>Customer Order</span
       >
       <div class="text-sm">
-        <router-link to="/customer_orders" class="nav-link" href="#">
+        <router-link to="/sims_home" >
           <div
             class="bg-gray-500 p-2 rounded mt-2 cursor-pointer hover:bg-gray-400"
           >

@@ -1,13 +1,10 @@
 <template>
-  <div>
+  <div class="h-screen bg-bgColor">
     <Header />
-
-    <div class="flex w-full h-screen">
+    <div class="flex w-full sideBar-height">
       <Sidebar />
-      <section class="w-full p-4">
-          dashboard
-            <router-view />
-
+      <section class="w-full h-full p-4">
+        <router-view />
       </section>
     </div>
   </div>
@@ -22,3 +19,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.sideBar-height{
+  height: calc(100vh - 70px);
+}
+</style>

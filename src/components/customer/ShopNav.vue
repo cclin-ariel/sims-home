@@ -128,19 +128,19 @@
             </metadata>
           </svg>
         </div>
-        <div class="uppercase pl-2 font-mono self-center">inspiration</div>
+        <div class="uppercase pl-2 font-mono self-center text-sm sm:text-base">inspiration</div>
       </div>
-      <div class="uppercase text-2xl font-serif text-3xl">sims-home</div>
+      <div class="uppercase text-2xl font-serif text-2xl sm:text-3xl">sims-home</div>
       <div class="flex font-mono self-center">
-        <div class="search uppercase ">search <i class="fas fa-search"></i></div>
-        <div class="shop-cart md:pl-3">
+        <div class="search uppercase text-sm sm:text-base">search <i class="fas fa-search"></i></div>
+        <div class="shop-cart pl-4 md:pl-3">
           <i class="fas fa-shopping-cart"></i>
         </div>
       </div>
-      <div class="md:hidden">
+      <div class="md:hidden flex self-senter">
         <button><i class="fas fa-bars"></i></button>
       </div>
-         <!-- division line -->
+      <!-- division line -->
     </div>
     <div class="md:hidden block border-b w-full"></div>
     <!-- nav -->
@@ -148,15 +148,35 @@
       class="nav border-t border-b py-2 lg:px-32 md:px-auto px-2 font-mono hidden md:block"
     >
       <ul class="flex flex-row justify-around">
-        <li class="uppercase">sale!</li>
-        <li class="uppercase">bedding</li>
-        <li class="uppercase">bath</li>
-        <li class="uppercase">bedroom</li>
-        <li class="uppercase">living</li>
-        <li class="uppercase">dining</li>
-        <li class="uppercase">outdoor</li>
-        <li class="uppercase">light &amp; decor</li>
-        <li class="uppercase">art</li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">sale!</router-link>
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">bedding</router-link>
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">bath</router-link>
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">bedroom</router-link>
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">living</router-link>
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">dining</router-link>
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">outdoor</router-link>
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category"
+            >light &amp; decor</router-link
+          >
+        </li>
+        <li class="uppercase">
+          <router-link to="/sims_home/shop_by_category">art</router-link>
+        </li>
       </ul>
     </div>
   </div>

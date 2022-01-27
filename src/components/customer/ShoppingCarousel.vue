@@ -1,4 +1,3 @@
-`
 <template>
 <div>
   <div class="uppercase font-mono pl-2 flex justify-center text-xl tracking-wide mt-14">find some idea...</div>
