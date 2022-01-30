@@ -24,7 +24,7 @@
           </div>
         </router-link>
 
-        <router-link to="/admin/coupon_list" class="nav-link" href="#">
+        <router-link to="/admin/coupon_list" class="nav-link hidden" href="#">
           <div
             class="bg-gray-500 p-2 rounded mt-2 cursor-pointer hover:bg-gray-400"
           >

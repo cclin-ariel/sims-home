@@ -174,7 +174,7 @@
                     <div class="px-2">=</div>
                     <div class="px-2 text-right w-2/12">
                       {{
-                        product.final_total | currency || product.total | currency
+                        product.final_total | currency ||product.total | currency
                       }}
                     </div>
                   </li>
@@ -191,7 +191,7 @@
                 }}
               </div>
             </div>
-            
+
             <!-- division line -->
             <div class="flex self-center border-b-2 w-full"></div>
 
@@ -241,18 +241,18 @@
         >
           <button
             type="button"
-            class="rounded border px-2 py-1"
+            class="rounded border px-2 py-1 hover:shadow-md"
             data-dismiss="modal"
             @click="isEdit = false"
           >
-            取消
+            Cancel
           </button>
           <button
             type="button"
-            class="rounded border px-2 py-1 ml-2"
+            class="rounded border px-2 py-1 ml-2 border text-base bg-secondaryColor text-bgColor hover:text-white hover:border-secondaryColor"
             @click="updateOrder"
           >
-            確認
+            Save
           </button>
         </div>
       </div>

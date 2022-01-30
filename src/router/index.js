@@ -12,6 +12,8 @@ import TopPage from "../components/customer/TopPage.vue";
 import ShopInspirationIdea from "../components/customer/ShopInspirationIdea.vue";
 import ShopByCategory from "../components/customer/ShopByCategory.vue";
 import ShopProduct from "../components/customer/ShopProduct.vue";
+import ShopOrders from "../components/customer/ShopOrders";
+import ShopCheckout from "../components/customer/ShopCheckout";
 
 Vue.use(VueRouter);
 
@@ -51,25 +53,6 @@ const routes = [
     ],
   },
 
-  // customer order
-
-  // {
-  //   path: '/',
-  //   name: 'Dashboard',
-  //   component: Dashboard,
-  //   children: [
-  //     {
-  //       path: 'customer_orders',
-  //       name: 'customerOrders',
-  //       component: CustomerOrders
-  //     },
-  //     {
-  //       path: 'customer_checkout/:orderId',
-  //       name: 'customerCheckout',
-  //       component: CustomerCheckout
-  //     }
-  //   ]
-  // },
   {
     path: "/sims_home",
     name: "Home",
@@ -92,13 +75,41 @@ const routes = [
       },
 
       {
-        path: "/sims_home/shop_product",
+        path: "/sims_home/shop_product/:id",
         name: "ShopProduct",
         component: ShopProduct,
+      },
+      // Shop order
+      {
+        path: "shop_orders",
+        name: "ShopOrders",
+        component: ShopOrders,
+      },
+      {
+        path: "shop_checkout/:orderId",
+        name: "ShopCheckout",
+        component: ShopCheckout,
       },
     ],
   },
 
+  // {
+  //   path: "/",
+  //   name: "Dashboard",
+  //   // component: Dashboard,
+  //   children: [
+  //     {
+  //       path: "shop_orders",
+  //       name: "ShopOrders",
+  //       component: ShopOrders,
+  //     },
+  //     {
+  //       path: "shop_checkout/:orderId",
+  //       name: "ShopCheckout",
+  //       component: ShopCheckout,
+  //     },
+  //   ],
+  // },
 ];
 
 const router = new VueRouter({

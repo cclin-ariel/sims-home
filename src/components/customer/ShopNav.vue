@@ -128,14 +128,20 @@
             </metadata>
           </svg>
         </div>
-        <div class="uppercase pl-2 font-mono self-center text-sm sm:text-base">inspiration</div>
-      </div>
-      <div class="uppercase text-2xl font-serif text-2xl sm:text-3xl">sims-home</div>
-      <div class="flex font-mono self-center">
-        <div class="search uppercase text-sm sm:text-base">search <i class="fas fa-search"></i></div>
-        <div class="shop-cart pl-4 md:pl-3">
-          <i class="fas fa-shopping-cart"></i>
+        <div class="uppercase pl-2 font-mono self-center text-sm sm:text-base">
+          inspiration
         </div>
+      </div>
+      <div class="uppercase text-2xl font-serif text-2xl sm:text-3xl">
+        sims-home
+      </div>
+      <div class="flex font-mono self-center">
+        <div class="search uppercase text-sm sm:text-base">
+          search <i class="fas fa-search"></i>
+        </div>
+        <router-link class="shop-cart pl-4 md:pl-3" to="/sims_home/shop_orders">
+          <i class="fas fa-shopping-cart"></i>
+        </router-link>
       </div>
       <div class="md:hidden flex self-senter">
         <button><i class="fas fa-bars"></i></button>
@@ -148,36 +154,29 @@
       class="nav border-t border-b py-2 lg:px-32 md:px-auto px-2 font-mono hidden md:block"
     >
       <ul class="flex flex-row justify-around">
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">sale!</router-link>
+        <li class="uppercase" v-for="item in categorys" :key="item.id">
+          <router-link to="/sims_home/shop_by_category">{{ item }}</router-link>
         </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">bedding</router-link>
-        </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">bath</router-link>
-        </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">bedroom</router-link>
-        </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">living</router-link>
-        </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">dining</router-link>
-        </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">outdoor</router-link>
-        </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category"
-            >light &amp; decor</router-link
-          >
-        </li>
-        <li class="uppercase">
-          <router-link to="/sims_home/shop_by_category">art</router-link>
-        </li>
+        
       </ul>
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      categorys: [
+        "bedding",
+        "bath",
+        "bedroom",
+        "living",
+        "dining",
+        "outdoor",
+        "LIGHT & DECOR",
+        "ART",
+      ],
+    };
+  },
+};
+</script>

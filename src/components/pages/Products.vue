@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-2">
+    <div class="mt-0">
       <button
         class="rounded text-bgColor bg-secondaryColor py-1.5 px-4 hover:bg-opacity-80"
         @click="openModal(true), (modalIsShowing = true)"
@@ -10,7 +10,7 @@
     </div>
 
     <!-- start of product list -->
-    <table class="table-fixed w-full p-3 mt-5">
+    <table class="table-fixed w-full  mt-5">
       <thead class="py-8">
         <th class="text-center w-10">No.</th>
         <th class="text-center w-2/12">Category</th>
@@ -22,9 +22,9 @@
         <th class="text-center w-20 mx-auto">Edit</th>
         <th class="text-center w-20">Delete</th>
       </thead>
-      <tbody>
+      <tbody >
         <tr v-for="(item, index) in products" :key="item.id" class="border-t-2">
-          <td class="text-center md:py-4">{{ index + 1 }}.</td>
+          <td class="text-center py-2">{{ index + 1 }}.</td>
           <td class="text-center">{{ item.category }}</td>
           <td class="text-left">{{ item.title }}</td>
           <td class="text-right">{{ item.origin_price | currency }}</td>
@@ -63,7 +63,7 @@
     <!-- start of add new modal -->
     <t-modal
       v-if="modalIsShowing"
-      class="flex z-40 w-full bg-opacity-50 antialiased mt-10 fixed top-20"
+      class="flex z-40 w-full bg-opacity-50 antialiased mt-10 absolute top-20"
       id="addNewModal"
     >
       <div
@@ -205,14 +205,14 @@
         >
           <button
             type="button"
-            class="px-4 py-2 text-secondaryColor font-semibold bg-bgColor hover:bg-opacity-80 rounded"
+            class="rounded border px-2 py-1 hover:shadow-md"
             @click="modalIsShowing = false"
           >
             Cancel
           </button>
           <button
             type="button"
-            class="ml-4 px-4 py-2 text-bgColor font-semibold bg-secondaryColor hover:bg-opacity-80 rounded"
+            class="rounded border px-2 py-1 ml-2 border text-base bg-secondaryColor text-bgColor hover:text-white hover:border-secondaryColor"
             @click="updateProduct"
           >
             Save
@@ -224,9 +224,9 @@
   </div>
 </template>
 <script>
-import Pagination from '../Pagination.vue'
+import Pagination from "../Pagination.vue";
 export default {
-    components: { Pagination },
+  components: { Pagination },
 
   data() {
     return {

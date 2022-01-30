@@ -3,16 +3,13 @@
     <ShopNav />
     <div class="md:h-32 h-20"></div>
 
-    <router-view/>
+    <router-view />
 
     <ShopFooter />
   </div>
 </template>
 <script>
 import ShopNav from "./ShopNav.vue";
-// import SaleSection from "./SaleSection.vue";
-// import ShopByInspiration from "./ShopByInspiration.vue";
-// import ShoppingCarousel from "./ShoppingCarousel.vue";
 import ShopFooter from "./ShopFooter.vue";
 export default {
   components: {
