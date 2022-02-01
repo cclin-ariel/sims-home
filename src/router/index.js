@@ -12,7 +12,7 @@ import TopPage from "../components/customer/TopPage.vue";
 import ShopInspirationIdea from "../components/customer/ShopInspirationIdea.vue";
 import ShopByCategory from "../components/customer/ShopByCategory.vue";
 import ShopProduct from "../components/customer/ShopProduct.vue";
-import ShopOrders from "../components/customer/ShopOrders";
+import ShopCart from "../components/customer/ShopCart";
 import ShopCheckout from "../components/customer/ShopCheckout";
 
 Vue.use(VueRouter);
@@ -81,9 +81,9 @@ const routes = [
       },
       // Shop order
       {
-        path: "shop_orders",
-        name: "ShopOrders",
-        component: ShopOrders,
+        path: "shop_cart",
+        name: "ShopCart",
+        component: ShopCart,
       },
       {
         path: "shop_checkout/:orderId",

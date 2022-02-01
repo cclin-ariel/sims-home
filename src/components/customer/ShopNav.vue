@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full fixed bg-white z-50">
+  <div class="w-full fixed bg-white z-50 px-2">
     <!-- header -->
-    <div class="flex justify-around py-5 mt-2">
-      <div class="flex">
+    <div class="flex justify-between sm:justify-around py-5 mt-2">
+      <div class="flex md:w-2/12">
         <!-- leaf logo -->
-        <div class="rounded-full w-7 h-7">
+        <div class="rounded-full my-auto w-4 h-4 sm:w-7 sm:h-7">
           <svg
             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
             xmlns="http://www.w3.org/2000/svg"
@@ -128,28 +128,45 @@
             </metadata>
           </svg>
         </div>
-        <div class="uppercase pl-2 font-mono self-center text-sm sm:text-base">
+        <div
+          class="uppercase text-xs pl-0 sm:pl-2 font-mono self-center sm:text-base"
+        >
           inspiration
         </div>
       </div>
-      <div class="uppercase text-2xl font-serif text-2xl sm:text-3xl">
+      <div
+        class="uppercase text-2xl font-serif lg:text-3xl md:w-2/12 text-center"
+      >
         sims-home
       </div>
-      <div class="flex font-mono self-center">
-        <div class="search uppercase text-sm sm:text-base">
-          search <i class="fas fa-search"></i>
+      <div class="flex font-mono self-center md:w-2/12">
+        <div
+          class="search uppercase text-xs sm:text-base my-auto flex sm:justify-end"
+        >
+          <input
+            class="hidden lg:block border rounded mr-3 pl-3 w-6/12 sm:w-8/12"
+            type="text"
+            placeholder="Search"
+          />
+          <i class="fas fa-search my-auto pr-4"></i>
         </div>
-        <router-link class="shop-cart pl-4 md:pl-3" to="/sims_home/shop_orders">
+        <router-link
+          class="shop-cart sm:pl-1 my-auto"
+          to="/sims_home/shop_Cart"
+        >
           <i class="fas fa-shopping-cart"></i>
         </router-link>
       </div>
-      <div class="md:hidden flex self-senter">
+      <div
+        class="md:hidden flex self-senter mx-2"
+        @click="mobileCategoryShowing = !mobileCategoryShowing"
+      >
         <button><i class="fas fa-bars"></i></button>
       </div>
       <!-- division line -->
     </div>
     <div class="md:hidden block border-b w-full"></div>
-    <!-- nav -->
+    <!--start of nav -->
     <div
       class="nav border-t border-b py-2 lg:px-32 md:px-auto px-2 font-mono hidden md:block"
     >
@@ -157,15 +174,40 @@
         <li class="uppercase" v-for="item in categorys" :key="item.id">
           <router-link to="/sims_home/shop_by_category">{{ item }}</router-link>
         </li>
-        
       </ul>
     </div>
+    <!--end of nav -->
+    <!-- start of mobileCategoryShowing -->
+    <div v-if="mobileCategoryShowing" class="bg-bgColor relative p-2">
+      <button
+        class="absolute top-2 right-3"
+        @click="mobileCategoryShowing = false"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="uppercase text-center py-3 text-lg text-secondaryColor tracking-wider">search by categorys</div>
+      <ul class="flex flex-col justify-center">
+        <li
+          class="uppercase text-center py-3"
+          v-for="item in categorys"
+          :key="item.id"
+        >
+          <router-link
+            to="/sims_home/shop_by_category"
+            class="border-0 hover:border-b-2 px-2 border-secondaryColor"
+            >{{ item }}</router-link
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- end of mobileCategoryShowing -->
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      mobileCategoryShowing: false,
       categorys: [
         "bedding",
         "bath",

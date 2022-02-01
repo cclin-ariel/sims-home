@@ -10,7 +10,7 @@
     </div>
 
     <!-- start of product list -->
-    <table class="table-fixed w-full  mt-5">
+    <table class="table-fixed w-full mt-5">
       <thead class="py-8">
         <th class="text-center w-10">No.</th>
         <th class="text-center w-2/12">Category</th>
