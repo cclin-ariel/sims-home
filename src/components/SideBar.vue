@@ -1,6 +1,6 @@
 <template>
   <aside class="w-60 shadow-md hidden sm:block text-bgColor">
-    <div class="flex h-full flex-col p-4 bg-mainColor">
+    <div class="flex h-full flex-col px-4 bg-mainColor pt-5">
       <span class="mb-2 pb-1 text-base"
         ><i class="fas fa-tasks pr-1"></i>Management</span
       >

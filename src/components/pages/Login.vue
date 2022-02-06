@@ -76,7 +76,7 @@ export default {
     return {
       user: {
         username: "",
-        passwaord: "",
+        password: "",
       },
     };
   },
@@ -88,7 +88,7 @@ export default {
         console.log(response.data);
         if (response.data.success) {
           const { token, expired } = response.data;
-          document.cookie = `ecToken=${token}; expires=${expired}`;
+          document.cookie = `simsToken=${token}; expires=${new Date(expired)}`;
           vm.$router.push("/admin/products");
         }
       });
