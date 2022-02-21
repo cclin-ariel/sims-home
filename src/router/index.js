@@ -11,6 +11,7 @@ import Home from "../components/customer/Home.vue";
 import TopPage from "../components/customer/TopPage.vue";
 import ShopInspirationIdea from "../components/customer/ShopInspirationIdea.vue";
 import ShopByCategory from "../components/customer/ShopByCategory.vue";
+import ShopThisInspiration from "../components/customer/ShopThisInspiration.vue";
 import ShopProduct from "../components/customer/ShopProduct.vue";
 import ShopCart from "../components/customer/ShopCart";
 import ShopCheckout from "../components/customer/ShopCheckout";
@@ -64,7 +65,7 @@ const routes = [
         component: TopPage,
       },
       {
-        path: "shop_inspiration_idea",
+        path: "shop_inspiration_idea/:inspirationItem?",
         name: "ShopInspirationIdea",
         component: ShopInspirationIdea,
       },
@@ -72,6 +73,11 @@ const routes = [
         path: "shop_by_category",
         name: "ShopByCategory",
         component: ShopByCategory,
+      },
+      {
+        path: "/sims_home/shop_this_inspiration",
+        name: "ShopThisInspiration",
+        component: ShopThisInspiration,
       },
 
       {
@@ -93,23 +99,6 @@ const routes = [
     ],
   },
 
-  // {
-  //   path: "/",
-  //   name: "Dashboard",
-  //   // component: Dashboard,
-  //   children: [
-  //     {
-  //       path: "shop_orders",
-  //       name: "ShopOrders",
-  //       component: ShopOrders,
-  //     },
-  //     {
-  //       path: "shop_checkout/:orderId",
-  //       name: "ShopCheckout",
-  //       component: ShopCheckout,
-  //     },
-  //   ],
-  // },
 ];
 
 const router = new VueRouter({

@@ -2,9 +2,7 @@
   <div class="max-w-screen flex flex-col items-center">
     <ShopNav />
     <div class="md:h-32 h-20"></div>
-
     <router-view />
-
     <ShopFooter />
   </div>
 </template>
@@ -14,7 +12,6 @@ import ShopFooter from "./ShopFooter.vue";
 export default {
   components: {
     ShopNav,
-
     ShopFooter,
   },
 };

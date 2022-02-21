@@ -1,55 +1,75 @@
 <template>
-<div>
-  <div class="uppercase font-mono pl-2 flex justify-center text-xl tracking-wide mt-14">find some idea...</div>
-  <div class="relative slide mt-10 pb-20">
-    <div
-      class="carousel-indicators absolute bottom-0 flex h-24 w-full justify-center items-center"
+  <div>
+    <div  @click="getDataFromTopPage"
+      class="uppercase font-mono pl-2 flex justify-center text-xl tracking-wide mt-14"
     >
-      <ol class="z-50 flex w-4/12 justify-center">
-        <li
-          v-for="(img, i) in images"
-          :key="i"
-          class="w-2 h-2 sm:w-3 sm:h-3 bg-gray-300 rounded-full cursor-pointer mx-2"
-        ></li>
-      </ol>
+      find some idea...
     </div>
-    <div class="carousel-inner relative overflow-hidden w-10/12 mx-auto flex flex-row">
+    <div class="relative slide mt-10 pb-20">
       <div
-        v-for="(img, i) in images"
-        :id="`slide-${i}`"
-        :key="i"
-        :class="`${active === i ? 'active' : 'left-full'}`"
-        class="carousel-item inset-0 relative w-full transform transition-all duration-500 ease-in-out"
+        class="carousel-indicators absolute bottom-0 flex h-24 w-full justify-center items-center"
       >
-        <img class="block min-w-365px sm:w-10/12 mx-auto rounded sm:flex sm:justify-center" :src="img" alt="First slide" />
+        <ol class="z-50 flex w-4/12 justify-center">
+          <li
+          v-for="(product,i) in filterProductList"
+            :key="i"
+            class="w-2 h-2 sm:w-3 sm:h-3 bg-gray-300 rounded-full cursor-pointer mx-2"
+          ></li>
+        </ol>
+      </div>
+      <div
+        class="carousel-inner relative overflow-hidden w-10/12 mx-auto flex flex-row"
+      >
+        <div
+          v-for="(product,i) in filterProductList"
+          :id="`slide-${i}`"
+          :key="i"
+          :class="`${active === i ? 'active' : 'left-full'}`"
+          class="carousel-item inset-0 relative w-full transform transition-all duration-500 ease-in-out"
+        >
+          <img
+            class="block min-w-365px sm:w-10/12 mx-auto rounded sm:flex sm:justify-center"
+              :src="product.imageUrl"
+              :alt="product.title"
+          />
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 <script>
 export default {
+  props: ["productList"],
+
   data() {
     return {
-      images: [
-        "https://picsum.photos/500/400?image=1",
-        "https://picsum.photos/500/400?image=2",
-        "https://picsum.photos/500/400?image=3",
-        "https://picsum.photos/id/238/1024/800",
-        "https://picsum.photos/id/239/1024/800",
-      ],
       active: 0,
     };
   },
   mounted() {
     let i = 0;
     setInterval(() => {
-      if (i > this.images.length - 1) {
+      if (i > this.filterProductList.length - 1) {
         i = 0;
       }
       this.active = i;
       i++;
     }, 3000);
+  },
+  computed: {
+    filterProductList() {
+      return this.productList.filter((product) => {
+        return (
+          product.is_enabled == 1 &&
+          product.content === "inspiration"  
+        );
+      });
+    },
+  },
+  methods: {
+    getDataFromTopPage() {
+      this.$parent.parentEvent();
+    },
   },
 };
 </script>

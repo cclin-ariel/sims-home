@@ -63,14 +63,14 @@
     <!-- start of add new modal -->
     <div class="relative" v-if="isNew || isEdit">
       <div
-        class="flex items-center z-40 w-full bg-opacity-50 antialiased mt-10 fixed top-14"
+        class="flex items-center z-40 w-full max-w-7xl bg-opacity-50 antialiased mt-10 fixed top-14"
         id="addNewModal"
       >
         <div
           class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl"
         >
           <div
-            class="flex flex-row justify-between px-6 py-3 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
+            class="flex flex-row justify-between px-6 py-2 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
           >
             <p
               class="font-sans text-gray-800 text-xl text-secondaryColor font-medium"
@@ -81,10 +81,11 @@
           </div>
           <div class="modal-body py-4 px-6 justify-center bg-white">
             <div class="grid grid-cols-1 gap-4">
-              <div class="flex flex-row">
-                <div class="flex flex-col">
+              <div class="flex flex-row w-full">
+                <div class="flex flex-col w-6/12">
                   <div class="">
                     <label for="image">Upload Image by url</label>
+                    <br />
                     <input
                       type="text"
                       class="rounded border w-full px-2 py-1"
@@ -110,15 +111,18 @@
                     />
                   </div>
                 </div>
-                <img
-                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                  class="border rounded p-1 max-h-40 ml-3"
+                <!-- <img
+                  class="border rounded p-1 max-h-40 max-w-30 ml-3"
                   :src="tempProduct.imageUrl"
                   alt="check your image url"
-                />
+                /> -->
+                <div
+                  class="border rounded p-1 w-full max-h-40 max-w-50 ml-3 bg-cover bg-no-repeat"
+                  :style="{ backgroundImage: `url(${tempProduct.imageUrl})` }"
+                ></div>
               </div>
               <hr class="col-span-2" />
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-2 gap-1">
                 <div class="">
                   <label for="title">Title</label>
                   <input
@@ -188,39 +192,39 @@
                     placeholder="Content..."
                   ></textarea>
                 </div>
-                <div class="col-span-2">
-                  <div class="flex justify-end">
-                    <input
-                      class="self-center"
-                      type="checkbox"
-                      id="is_enabled"
-                      v-model="tempProduct.is_enabled"
-                      :true="1"
-                      :false="0"
-                    />
-                    <label class="ml-2" for="is_enabled"> Launched </label>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
           <div
-            class="flex flex-row items-center justify-end p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
+            class="w-full flex flex-row justify-between bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
           >
-            <button
-              type="button"
-              class="rounded border px-2 py-1 hover:shadow-md"
-              @click="(isNew = false), (isEdit = false)"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              class="rounded border px-2 py-1 ml-2 border text-base bg-secondaryColor text-bgColor hover:text-white hover:border-secondaryColor"
-              @click="updateProduct"
-            >
-              Save
-            </button>
+            <div class="py-3 px-5">
+              <input
+                class="self-center"
+                type="checkbox"
+                id="is_enabled"
+                v-model="tempProduct.is_enabled"
+                :true="1"
+                :false="0"
+              />
+              <label class="ml-2" for="is_enabled"> Launched </label>
+            </div>
+            <div class="flex flex-row items-center justify-end py-3 px-5">
+              <button
+                type="button"
+                class="rounded border px-2 py-1 hover:shadow-md"
+                @click="(isNew = false), (isEdit = false)"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="rounded border px-2 py-1 ml-2 border text-base bg-secondaryColor text-bgColor hover:text-white hover:border-secondaryColor"
+                @click="updateProduct"
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -254,6 +258,7 @@
             </button>
             <button
               class="rounded border px-2 py-1 ml-2 border text-base bg-secondaryColor text-bgColor hover:text-white hover:border-secondaryColor"
+              @click="deleteProduct"
             >
               Delete
             </button>
@@ -271,7 +276,6 @@ export default {
 
   data() {
     return {
-      // modalIsShowing: false,
       products: [],
       pagination: {},
       tempProduct: {},
@@ -287,7 +291,6 @@ export default {
   },
   created() {
     this.getProducts();
-    console.log(this.isNew, this.isEdit);
   },
   methods: {
     getProducts(page = 1) {
@@ -310,15 +313,39 @@ export default {
       if (isEdit) {
         this.tempProduct = Object.assign({}, item); // 避免傳參考而覆蓋物件的值
         this.isEdit = true;
-        this.modalType = "#productModal";
       }
       if (isDelete) {
         this.tempProduct = item; // no value in this modal, no need to避免傳參考而覆蓋物件的值
         this.isDelete = true;
 
-        this.modalType = "#delProductModal";
       }
-      // $(this.modalType).modal('show')
+    },
+    uploadFile() {
+      console.log(this);
+      const uploadedFile = this.$refs.files.files[0];
+      const vm = this;
+      const formData = new FormData();
+      formData.append("file-to-upload", uploadedFile);
+      const api = `https://vue-course-api.hexschool.io/api/cclin/admin/upload`;
+
+      vm.status.fileUploading = true;
+      this.$http
+        .post(api, formData, {
+          headers: {
+            "content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.success) {
+            vm.status.fileUploading = false;
+            // vm.tempProduct.imageUrl = response.data.imageUrl
+            // console.log(vm.tempProduct)
+            vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+          } else {
+            this.$bus.$emit("message:push", response.data.message, "danger");
+          }
+        });
     },
     updateProduct() {
       let api = `https://vue-course-api.hexschool.io/api/cclin/admin/product`;
@@ -343,6 +370,23 @@ export default {
         vm.products = response.data.products;
         vm.modalIsShowing = false;
       });
+    },
+    deleteProduct() {
+      console.log("deleteProduct", this.tempProduct);
+
+      const vm = this;
+      const delApi = `https://vue-course-api.hexschool.io/api/cclin/admin/product/${vm.tempProduct.id}`;
+      this.$http.delete(delApi).then((response) => {
+        console.log(response.data);
+        if (response.data.success) {
+          vm.getProducts();
+        } else {
+          // $('#delProductModal').modal('hide')
+          vm.getProducts();
+          console.log("failure");
+        }
+      });
+      vm.isDelete = false;
     },
   },
 };

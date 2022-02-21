@@ -1,43 +1,16 @@
 <template>
   <div>
-    <div @click="getDataFromTopPage" class="mt-10 mb-5 max-w-1600px">
+    <div class="mt-10 mb-5 max-w-1600px">
       <div
         class="uppercase font-mono pl-2 flex justify-center text-xl tracking-wide"
       >
-        INSPIRATION DELIVERED
+        {{ inspirationTitle }}
         <div class="md:hidden ml-3">
           <button><i class="fas fa-caret-down"></i></button>
         </div>
       </div>
-      <!-- start of inspiration nav -->
-      <div>
-        <ul
-          class="max-w-full mx-auto sm:w-11/12 lg:w-10/12 sm:mt-8 sm:flex sm:justify-around hidden sm:block sm:text-sm sm:flex-wrap"
-        >
-          <li
-            class="btn btn-outline-primary btn-sm border py-2 px-4 md:mx-2 border uppercase rounded-full sm:mb-5 hover:shadow"
-            v-for="item in categories"
-            :key="item.id"
-          >
-            <router-link
-              :to="{
-                path: `/sims_home/shop_inspiration_idea/${item}`,
-                name: 'ShopInspirationIdea',
-                params: {
-                  productList: JSON.stringify(productList),
-                  categoriesData: JSON.stringify(categories),
-                  cate: item,
-                },
-                props: true,
-              }"
-              >{{ item }}</router-link
-            >
-          </li>
-        </ul>
-      </div>
-      <!-- end of inspiration nav -->
 
-      <!-- start of inspiration grid -->
+      <!-- start of product grid -->
       <div class="flex mt-5 sm:mt-5 flex-wrap justify-center max-w-11/12">
         <div
           v-for="product in filterProductList"
@@ -46,10 +19,10 @@
         >
           <router-link
             :to="{
-              name: 'ShopThisInspiration',
+              name: 'ShopProduct',
               params: {
-                productTitle: product.title,
-                  productList: JSON.stringify(productList),
+                productID: product.id,
+                targetProduct: JSON.stringify(product),
               },
               props: true,
             }"
@@ -67,10 +40,10 @@
           >
             <router-link
               :to="{
-                name: 'ShopThisInspiration',
+                name: 'ShopProduct',
                 params: {
-                  productTitle: product.title,
-                  productList: JSON.stringify(productList),
+                  productID: product.id,
+                  targetProduct: JSON.stringify(product),
                 },
                 props: true,
               }"
@@ -80,21 +53,27 @@
           </div>
         </div>
       </div>
-      <!-- end of inspiration grid -->
+      <!-- end of product grid -->
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ["categories", "productList"],
   data() {
-    return {};
+    return {
+      productList: JSON.parse(this.$route.params.productList),
+      inspirationTitle: this.$route.params.productTitle,
+    };
   },
-
+  created() {
+    console.log(this.productList);
+  },
   computed: {
     filterProductList() {
       return this.productList.filter((product) => {
-        return product.is_enabled == 1 && product.content === "inspiration";
+        return (
+          product.is_enabled == 1 && product.content === this.inspirationTitle
+        );
       });
     },
   },

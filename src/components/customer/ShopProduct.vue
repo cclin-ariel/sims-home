@@ -2,10 +2,10 @@
   <div class="w-full max-w-1600px flex justify-center flex-col sm:w-10/12">
     <!-- start of breadcrumb -->
     <div class="w-full flex flex-row pl-5 sm:w-10/12 sm:pl-24 my-8 md:pl-32">
-      <router-link
-        class="hover:text-gray-400 text-sm sm:text-base font-serif capitalize"
+      <p
+        class="text-sm sm:text-base font-serif capitalize"
         to="/sims_home/shop_by_category"
-        >product</router-link
+        >product</p
       >
       <div class="mx-3 flex self-center">
         <i class="fas fa-chevron-right fa-xs"></i>
@@ -18,10 +18,10 @@
       <div class="mx-3 flex self-center">
         <i class="fas fa-chevron-right fa-xs"></i>
       </div>
-      <router-link
-        class="hover:text-gray-400 text-sm sm:text-base font-serif capitalize"
+      <p
+        class="text-sm sm:text-base font-serif capitalize"
         to="/sims_home/shop_by_category"
-        >{{ product.title }}</router-link
+        >{{ product.title }}</p
       >
     </div>
     <!-- end of breadcrumb -->
@@ -36,7 +36,7 @@
         >
           <ol class="z-50 flex w-4/12 justify-center">
             <li
-              v-for="(img, i) in images"
+              v-for="(img, i) in product.imageUrl"
               :key="i"
               class="w-2 h-2 sm:w-3 sm:h-3 bg-gray-300 rounded-full cursor-pointer mx-2"
             ></li>
@@ -46,7 +46,7 @@
           class="carousel-inner relative overflow-hidden w-10/12 mx-auto flex flex-row"
         >
           <div
-            v-for="(img, i) in images"
+            v-for="(img, i) in product.imageUrl"
             :id="`slide-${i}`"
             :key="i"
             :class="`${active === i ? 'active' : 'left-full'}`"
@@ -54,7 +54,7 @@
           >
             <img
               class="block min-w-365px sm:w-10/12 mx-auto rounded sm:flex sm:justify-center"
-              :src="img"
+              :src="product.imageUrl"
               alt="First slide"
             />
           </div>
@@ -78,16 +78,13 @@
       </div>
       <!-- end of product title -->
 
-      <div class="order-3 md:col-span-1 md:row-span-2 flex flex-col">
+      <div class="order-3 md:col-span-1 md:row-span-2 flex flex-col md:min-w-2xl">
         <!-- division line -->
         <div class="flex self-center border-b-2 w-11/12 sm:hidden"></div>
 
         <div class="mt-8 w-10/12 flex self-center flex-col">
-          <div class="text-gray-500 tracking-wider text-xl">
+          <div class="text-gray-500 tracking-wider text-xl mt-8">
             {{ product.price | currency }}
-          </div>
-          <div class="text-gray-500 tracking-wider uppercase mt-5">
-            size: <span class="text-gray-500">{{ product.content }}</span>
           </div>
           <!-- start of QTY -->
           <div class="flex flex-row mt-5">
@@ -125,7 +122,7 @@
 
           <button
             @click="addToCart(product.id, product.num)"
-            class="uppercase rounded px-3 py-2 m-1 shadow-lg bg-secondaryColor text-white my-10 tracking-widest w-9/12 sm:max-w-md mx-auto"
+            class="uppercase rounded px-3 py-2 m-1 shadow-lg bg-secondaryColor text-white my-10 tracking-widest w-full sm:max-w-md mx-auto "
           >
             add to bag
           </button>
@@ -150,27 +147,24 @@
 export default {
   data() {
     return {
-      product: {},
+      product: JSON.parse(this.$route.params.targetProduct),
       productId: "",
       num: 1,
-      images: [
-        "https://picsum.photos/500/500?image=88",
-        "https://picsum.photos/500/500?image=82",
-      ],
+
       active: 0,
       carts: [],
     };
   },
   methods: {
-    getProduct(productId) {
-      const api = `https://vue-course-api.hexschool.io/api/cclin/product/${productId}`;
-      const vm = this;
-      this.$http.get(api).then((response) => {
-        vm.product = response.data.product;
-        console.log("getProduct", vm.product);
-        // vm.images = vm.images.unshift(vm.product.imageUrl);
-      });
-    },
+    // getProduct(productId) {
+    //   const api = `https://vue-course-api.hexschool.io/api/cclin/product/${productId}`;
+    //   const vm = this;
+    //   this.$http.get(api).then((response) => {
+    //     vm.product = response.data.product;
+    //     console.log("getProduct", vm.product);
+    //     // vm.images = vm.images.unshift(vm.product.imageUrl);
+    //   });
+    // },
     addToCart(id, qty) {
       const api = `https://vue-course-api.hexschool.io/api/cclin/cart`;
       // const vm = this;
@@ -196,19 +190,19 @@ export default {
     },
   },
   created() {
-    this.productId = this.$route.params.id;
-    this.getProduct(this.productId);
+    // this.productId = this.$route.params.id;
+    // this.getProduct(this.productId);
     // console.log(this.$route.params.id);
   },
   mounted() {
-    let i = 0;
-    setInterval(() => {
-      if (i > this.images.length - 1) {
-        i = 0;
-      }
-      this.active = i;
-      i++;
-    }, 4000);
+    // let i = 0;
+    // setInterval(() => {
+    //   if (i > this.images.length - 1) {
+    //     i = 0;
+    //   }
+    //   this.active = i;
+    //   i++;
+    // }, 4000);
   },
 };
 </script>
