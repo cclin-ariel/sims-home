@@ -12,6 +12,7 @@ import TopPage from "../components/customer/TopPage.vue";
 import ShopInspirationIdea from "../components/customer/ShopInspirationIdea.vue";
 import ShopByCategory from "../components/customer/ShopByCategory.vue";
 import ShopThisInspiration from "../components/customer/ShopThisInspiration.vue";
+import ShopByKeyword from "../components/customer/ShopByKeyword.vue";
 import ShopProduct from "../components/customer/ShopProduct.vue";
 import ShopCart from "../components/customer/ShopCart";
 import ShopCheckout from "../components/customer/ShopCheckout";
@@ -79,9 +80,14 @@ const routes = [
         name: "ShopThisInspiration",
         component: ShopThisInspiration,
       },
+      {
+        path: "/sims_home/shop_by_keyword",
+        name: "ShopByKeyword",
+        component: ShopByKeyword,
+      },
 
       {
-        path: "/sims_home/shop_product/:id",
+        path: "/sims_home/shop_product/",
         name: "ShopProduct",
         component: ShopProduct,
       },

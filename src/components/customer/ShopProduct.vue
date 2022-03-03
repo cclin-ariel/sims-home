@@ -1,12 +1,13 @@
 <template>
   <div class="w-full max-w-1600px flex justify-center flex-col sm:w-10/12">
     <!-- start of breadcrumb -->
-    <div class="w-full flex flex-row pl-5 sm:w-10/12 sm:pl-24 my-8 md:pl-32">
+    <div class="w-full flex flex-row pl-5 w-full md:w-10/12 my-8 md:pl-32">
       <p
         class="text-sm sm:text-base font-serif capitalize"
         to="/sims_home/shop_by_category"
-        >product</p
       >
+        product
+      </p>
       <div class="mx-3 flex self-center">
         <i class="fas fa-chevron-right fa-xs"></i>
       </div>
@@ -21,17 +22,18 @@
       <p
         class="text-sm sm:text-base font-serif capitalize"
         to="/sims_home/shop_by_category"
-        >{{ product.title }}</p
       >
+        {{ product.title }}
+      </p>
     </div>
     <!-- end of breadcrumb -->
 
-    <div class="w-full flex flex-col md:grid md:grid-flow-col auto-rows-min">
+    <div class="mx-auto w-full flex flex-col md:grid md:grid-flow-col md:auto-col-min">
       <!-- start of carousel -->
       <div
-        class="relative slide mt-3 pb-20 order-2 md:order-1 md:row-span-3 md:col-span-3"
+        class="relative slide w-full mt-3 order-2 md:order-1 md:row-span-3 md:col-span-1 w-full md:max-w-4xl"
       >
-        <div
+        <!-- <div
           class="carousel-indicators absolute bottom-0 flex h-24 w-full justify-center items-center"
         >
           <ol class="z-50 flex w-4/12 justify-center">
@@ -41,9 +43,9 @@
               class="w-2 h-2 sm:w-3 sm:h-3 bg-gray-300 rounded-full cursor-pointer mx-2"
             ></li>
           </ol>
-        </div>
+        </div> -->
         <div
-          class="carousel-inner relative overflow-hidden w-10/12 mx-auto flex flex-row"
+          class="carousel-inner relative overflow-hidden w-full md:w-10/12 mx-auto flex flex-row"
         >
           <div
             v-for="(img, i) in product.imageUrl"
@@ -53,7 +55,7 @@
             class="carousel-item inset-0 relative w-full transform transition-all duration-500 ease-in-out"
           >
             <img
-              class="block min-w-365px sm:w-10/12 mx-auto rounded sm:flex sm:justify-center"
+              class="block w-full max-w-2xl md:w-10/12 mx-auto rounded sm:flex sm:justify-center"
               :src="product.imageUrl"
               alt="First slide"
             />
@@ -65,9 +67,9 @@
       <!-- start of product detail -->
       <!-- start of product title -->
       <div
-        class="mx-auto w-11/12 order-1 md:order-2 md:col-span-1 md:h-10 md:pl-3 lg:pt-10"
+        class="mx-auto w-full max-w-4xl sm:min-w-48 md:min-w-64 order-1 md:order-2 md:col-span-1 md:h-10 md:pl-3 lg:pt-5"
       >
-        <div class="underline px-5 tracking-widest sm:px-0 sm:w-10/12">
+        <div class="underline px-5 tracking-widest md:px-0 sm:w-10/12">
           new!
         </div>
         <div
@@ -78,7 +80,9 @@
       </div>
       <!-- end of product title -->
 
-      <div class="order-3 md:col-span-1 md:row-span-2 flex flex-col md:min-w-2xl">
+      <div
+        class="order-3 md:col-span-1 md:row-span-2 flex flex-col md:min-w-2xl"
+      >
         <!-- division line -->
         <div class="flex self-center border-b-2 w-11/12 sm:hidden"></div>
 
@@ -122,7 +126,7 @@
 
           <button
             @click="addToCart(product.id, product.num)"
-            class="uppercase rounded px-3 py-2 m-1 shadow-lg bg-secondaryColor text-white my-10 tracking-widest w-full sm:max-w-md mx-auto "
+            class="uppercase rounded px-3 py-2 m-1 shadow-lg bg-secondaryColor text-white my-10 tracking-widest w-full sm:max-w-md mx-auto"
           >
             add to bag
           </button>
@@ -156,15 +160,6 @@ export default {
     };
   },
   methods: {
-    // getProduct(productId) {
-    //   const api = `https://vue-course-api.hexschool.io/api/cclin/product/${productId}`;
-    //   const vm = this;
-    //   this.$http.get(api).then((response) => {
-    //     vm.product = response.data.product;
-    //     console.log("getProduct", vm.product);
-    //     // vm.images = vm.images.unshift(vm.product.imageUrl);
-    //   });
-    // },
     addToCart(id, qty) {
       const api = `https://vue-course-api.hexschool.io/api/cclin/cart`;
       // const vm = this;

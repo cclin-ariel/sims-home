@@ -14,7 +14,7 @@
     <!-- start of inspiration nav -->
     <div>
       <ul
-        class="max-w-full mx-auto w-full sm:mt-8 sm:flex sm:justify-around hidden sm:block sm:text-sm sm:flex-wrap"
+        class="w-10/12 mx-auto sm:mt-8 sm:flex sm:justify-around hidden sm:block sm:text-sm sm:flex-wrap"
       >
         <li
           class="btn btn-outline-primary btn-sm border py-2 px-4 md:mx-2 border uppercase rounded-full sm:mb-5 hover:shadow"
@@ -28,29 +28,32 @@
       </ul>
     </div>
     <!-- end of inspiration nav -->
-    <div
-      v-for="product in filterProductList"
-      :key="product.id"
-      class="max-w-screen-xl sm:w-10/12 mx-auto mt-10 sm:mt-0 mb-10 sm:mb-0 flex flex-col justify-evenly sm:flex-row sm:flex-wrap"
-    >
-      <div class="relative my-12 mx-3">
-        <img class="rounded" :src="product.imageUrl" alt="Interior Idea" />
-        <router-link
-          :to="{
-            name: 'ShopThisInspiration',
-            params: {
-              productTitle: product.title,
-              productList: JSON.stringify(productList),
-            },
-            props: true,
-          }"
-        >
-          <button
-            class="absolute border right-2 top-2 shadow rounded px-2 py-1 bg-bgColor text-sm uppercase tracking-wide"
+    <div class="flex mt-5 sm:mt-5 flex-wrap justify-center max-w-11/12">
+      <div
+        v-for="product in filterProductList"
+        :key="product.id"
+        class="mx-5 my-5 md:my-10"
+      >
+        <div class="relative my-12 mx-3 w-11/12 sm:min-w-10/12 max-w-2xl mx-auto">
+          <img class="rounded" :src="product.imageUrl" alt="Interior Idea" />
+          <router-link
+            :to="{
+              name: 'ShopThisInspiration',
+              params: {
+                inspirationPic: product.imageUrl,
+                productTitle: product.title,
+                productList: JSON.stringify(productList),
+              },
+              props: true,
+            }"
           >
-            shop this look
-          </button></router-link
-        >
+            <button
+              class="absolute border right-2 top-2 shadow rounded px-2 py-1 bg-bgColor text-sm uppercase tracking-wide"
+            >
+              shop this look
+            </button></router-link
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -67,6 +70,12 @@ export default {
     };
   },
   created() {
+    // if (this.$route.params.cate) {
+    //   this.categoryTarget = this.$route.params.cate;
+    // } else {
+    //   this.categoryTarget = "bedroom";
+    // }
+
     console.log(this.productList, this.categoryTarget);
   },
   computed: {

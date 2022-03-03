@@ -20,7 +20,7 @@ export default {
   },
   created() {
     const simsCookie = document.cookie.replace(/(?:(?:^|.*;\s*)simsToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-    console.log("simsCookie",simsCookie);
+    // console.log("simsCookie",simsCookie);
     this.$http.defaults.headers.common.Authorization = `${simsCookie}`;
   },
 };

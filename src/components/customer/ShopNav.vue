@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full fixed bg-white z-50 px-2">
+  <div class="w-full fixed bg-white z-50 px-2" @click="getData">
     <!-- header -->
-    <div class="flex justify-between sm:justify-around py-5 mt-2">
+    <div class="relative flex justify-between py-5 mt-2">
       <div class="flex md:w-2/12">
         <!-- leaf logo -->
         <div class="rounded-full my-auto w-4 h-4 sm:w-7 sm:h-7">
@@ -135,34 +135,62 @@
         </div>
       </div>
       <div
-        class="uppercase text-2xl font-serif lg:text-3xl md:w-2/12 text-center"
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 uppercase text-2xl font-serif lg:text-3xl text-center"
       >
-        sims-home
+        <router-link :to="{ path: '/sims_home' }"> sims-home</router-link>
       </div>
-      <div class="flex font-mono self-center md:w-2/12">
+      <div class="flex font-mono self-center sm:w-4/12 md:3/12 
+    justify-end">
         <div
-          class="search uppercase text-xs sm:text-base my-auto flex sm:justify-end"
+          class="search uppercase text-xs sm:text-base my-auto flex flex-row sm:justify-end relative hidden md:block"
         >
           <input
-            class="hidden lg:block border rounded mr-3 pl-3 w-6/12 sm:w-8/12"
+            class="focus:ring-2 focus:ring-gray-300 focus:outline-none focus:border-transparent border rounded mr-2 pl-3 w-6/12 md:w-8/12"
             type="text"
+            v-model="searchKeyword"
+            @keyup.enter="toShopByKeyword(filteredByKeywordList)"
             placeholder="Search"
           />
-          <i class="fas fa-search my-auto pr-4"></i>
+          <!-- start of input filter -->
+          <div
+            class="search absolute top-7 left-9 bg-bgColor rounded-bl rounded-br py-1 px-2 text-gray-500"
+            v-if="this.filteredByKeywordList && this.searchKeyword"
+          >
+            <div
+              class="searchResult border-b"
+              v-for="product in filteredByKeywordList"
+              :key="product.id"
+            >
+              <button class="uppercase" @click="toShopProduct(product)">
+                {{ product.title }}
+              </button>
+            </div>
+          </div>
+          <!-- end of input filter -->
+
+          <button
+            @click="toShopByKeyword(filteredByKeywordList)"
+            class="px-2 "
+          >
+            <i class="fas fa-search m-auto"></i>
+          </button>
         </div>
-        <router-link
-          class="shop-cart sm:pl-1 my-auto"
-          to="/sims_home/shop_Cart"
-        >
-          <i class="fas fa-shopping-cart"></i>
-        </router-link>
+        <div class="flex flex-row">
+          <router-link
+            class="shop-cart sm:pl-1 my-auto mr-3"
+            to="/sims_home/shop_Cart"
+          >
+            <i class="fas fa-shopping-cart"></i>
+          </router-link>
+          <button
+            class="md:hidden flex self-senter mx-2"
+            @click="mobileCategoryShowing = !mobileCategoryShowing"
+          >
+            <div><i class="fas fa-bars"></i></div>
+          </button>
+        </div>
       </div>
-      <div
-        class="md:hidden flex self-senter mx-2"
-        @click="mobileCategoryShowing = !mobileCategoryShowing"
-      >
-        <button><i class="fas fa-bars"></i></button>
-      </div>
+
       <!-- division line -->
     </div>
     <div class="md:hidden block border-b w-full"></div>
@@ -171,8 +199,25 @@
       class="nav border-t border-b py-2 lg:px-32 md:px-auto px-2 font-mono hidden md:block"
     >
       <ul class="flex flex-row justify-around">
-        <li class="uppercase" v-for="item in categorys" :key="item.id">
-          <router-link to="/sims_home/shop_by_category">{{ item }}</router-link>
+        <li
+          class="uppercase"
+          v-for="category in categoriesDataFromHome"
+          :key="category.id"
+        >
+          <router-link
+            :to="{
+              path: '`/shop_by_category/${category}`',
+
+              name: 'ShopByCategory',
+              query: {
+                cate: category,
+                productList: JSON.stringify(productsFromHome),
+              },
+              props: true,
+            }"
+            class="border-0 hover:border-b-2 px-2 border-secondaryColor"
+            >{{ category }}</router-link
+          >
         </li>
       </ul>
     </div>
@@ -185,17 +230,29 @@
       >
         <i class="fas fa-times"></i>
       </button>
-      <div class="uppercase text-center py-3 text-lg text-secondaryColor tracking-wider">search by categorys</div>
+      <div
+        class="uppercase text-center py-3 text-lg text-secondaryColor tracking-wider"
+      >
+        search by categorys
+      </div>
       <ul class="flex flex-col justify-center">
         <li
           class="uppercase text-center py-3"
-          v-for="item in categorys"
-          :key="item.id"
+          v-for="category in categoriesDataFromHome"
+          :key="category.id"
         >
           <router-link
-            to="/sims_home/shop_by_category"
+            :to="{
+              path: `/sims_home/shop_by_category`,
+              name: 'ShopByCategory',
+              params: {
+                productList: JSON.stringify(productsFromHome),
+                categoriesData: JSON.stringify(categoriesDataFromHome),
+              },
+              props: true,
+            }"
             class="border-0 hover:border-b-2 px-2 border-secondaryColor"
-            >{{ item }}</router-link
+            >{{ category }}</router-link
           >
         </li>
       </ul>
@@ -205,20 +262,60 @@
 </template>
 <script>
 export default {
+  props: ["categoriesDataFromHome", "productsFromHome"],
+
   data() {
     return {
       mobileCategoryShowing: false,
-      categorys: [
-        "bedding",
-        "bath",
-        "bedroom",
-        "living",
-        "dining",
-        "outdoor",
-        "LIGHT & DECOR",
-        "ART",
-      ],
+      searchKeyword: "",
     };
+  },
+  computed: {
+    filteredByKeywordList() {
+      return this.productsFromHome.filter((product) => {
+        return (
+          (!product.title.toUpperCase().includes("INSPIRATION") &&
+            product.title
+              .toUpperCase()
+              .includes(this.searchKeyword.toUpperCase())) ||
+          (!product.title.toUpperCase().includes("INSPIRATION") &&
+            product.category
+              .toUpperCase()
+              .includes(this.searchKeyword.toUpperCase())) ||
+          (!product.title.toUpperCase().includes("INSPIRATION") &&
+            product.description
+              .toUpperCase()
+              .includes(this.searchKeyword.toUpperCase()))
+        );
+      });
+    },
+  },
+  methods: {
+    getData() {
+      // console.log(this.$parent.categoriesDataFromHome);
+      this.$parent.parentEvent();
+    },
+    toShopProduct(product) {
+      this.$router.push({
+        name: "ShopProduct",
+        params: { targetProduct: JSON.stringify(product) },
+      });
+      this.searchKeyword = "";
+    },
+    toShopByKeyword(filteredList) {
+      console.log(this.filteredByKeywordList);
+      if (!this.searchKeyword) return;
+      if (this.searchKeyword) {
+        this.$router.push({
+          name: "ShopByKeyword",
+          params: {
+            filteredListFromSearchKeyword: JSON.stringify(filteredList),
+          },
+        });
+      }
+
+      this.searchKeyword = "";
+    },
   },
 };
 </script>

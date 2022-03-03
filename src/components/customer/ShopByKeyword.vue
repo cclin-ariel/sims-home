@@ -5,23 +5,17 @@
         <div
           class="uppercase font-mono pl-2 flex justify-center text-xl tracking-wide"
         >
-          {{ inspirationTitle }}
+          ALL SEARCH RESULTS 
         </div>
-        <div class="mx-auto my-12">
-          <img
-            class="w-10/12 rounded max-w-2xl mx-auto"
-            :src="this.inspirationPic"
-            :alt="this.inspirationTitle"
-          />
-        </div>
+        
       </div>
       <!-- division line -->
-      <div class="border-b w-11/12 md:w-full mx-auto"></div>
+      <div class="border-b w-11/12 md:w-11/12 mx-auto mt-16"></div>
 
       <!-- start of product grid -->
       <div class="flex mt-5 sm:mt-5 flex-wrap justify-center max-w-11/12">
         <div
-          v-for="product in filterProductList"
+          v-for="product in filteredListFromNav"
           :key="product.id"
           class="mx-5 my-5 md:my-10"
         >
@@ -69,28 +63,16 @@
 export default {
   data() {
     return {
-      inspirationPic: this.$route.params.inspirationPic,
-      productList: JSON.parse(this.$route.params.productList),
-      inspirationTitle: this.$route.params.productTitle,
+      filteredListFromNav: JSON.parse(this.$route.params.filteredListFromSearchKeyword),
     };
   },
   created() {
-    console.log(this.productList);
   },
   computed: {
-    filterProductList() {
-      return this.productList.filter((product) => {
-        return (
-          product.is_enabled == 1 && product.content === this.inspirationTitle
-        );
-      });
-    },
+
   },
   methods: {
-    getDataFromTopPage() {
-      // console.log(this.$parent.categoriesData);
-      this.$parent.parentEvent();
-    },
+
   },
 };
 </script>

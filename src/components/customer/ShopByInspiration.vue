@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div @click="getDataFromTopPage" class="mt-10 mb-5 max-w-1600px">
+    <div @click="getDataFromTopPage" class="mt-10 mb-5 max-w-1600px w-full md:w-11/12 mx-auto">
       <div
         class="uppercase font-mono pl-2 flex justify-center text-xl tracking-wide"
       >
@@ -38,7 +37,7 @@
       <!-- end of inspiration nav -->
 
       <!-- start of inspiration grid -->
-      <div class="flex mt-5 sm:mt-5 flex-wrap justify-center max-w-11/12">
+      <div class="flex mt-5 sm:mt-5 flex-wrap justify-center w-11/12 mx-auto">
         <div
           v-for="product in filterProductList"
           :key="product.id"
@@ -49,15 +48,17 @@
               name: 'ShopThisInspiration',
               params: {
                 productTitle: product.title,
-                  productList: JSON.stringify(productList),
+                inspirationPic: product.imageUrl,
+                productList: JSON.stringify(productList),
               },
               props: true,
             }"
           >
             <img
-              class="sm:min-w-10/12 rounded max-w-2xl"
+              class="w-11/12 mx-auto rounded max-w-lg"
               :src="product.imageUrl"
               :alt="product.title"
+              loading="lazy"
           /></router-link>
           <div class="w-full text-xl text-center capitalize font-serif mt-8">
             {{ product.title }}
@@ -82,7 +83,6 @@
       </div>
       <!-- end of inspiration grid -->
     </div>
-  </div>
 </template>
 <script>
 export default {
