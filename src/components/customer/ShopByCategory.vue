@@ -6,53 +6,65 @@
       ALL {{ categoryTarget }}
     </div>
     <div
-      class="w-10/12 max-w-180px tracking-wide flex justify-center px-6 mx-auto mt-8 font-serif"
+      class="w-full tracking-wide flex justify-center px-6 mx-auto mt-8 leading-relaxed my-6 font-mono"
     >
       Enjoy free shipping & returns on your life.
     </div>
 
     <div
-      class="max-w-screen-xl sm:w-10/12 mx-auto mt-10 flex flex-col justify-evenly sm:flex-row sm:flex-wrap sm:justify-around"
+      class="w-11/12 sm:w-10/12 mx-auto mt-10 flex flex-col justify-evenly sm:flex-row sm:flex-wrap sm:justify-around"
     >
       <div
         v-for="product in filterProductList"
         :key="product.id"
         :class="{ hidden: !product.imageUrl }"
-        class="relative my-12 mx-3 max-w-md"
+        class="relative my-12 mx-auto max-w-md"
       >
-        <img class="rounded" :src="`${product.imageUrl}`" :alt="`${product.title}`" />
         <router-link
           :to="{
+            path: '`/sims_home/shop_product/${product.id}`',
             name: 'ShopProduct',
-            params: {
+            query: {
               productID: product.id,
               targetProduct: JSON.stringify(product),
             },
             props: true,
           }"
         >
-          <button
-            class="absolute border right-2 top-2 shadow rounded px-2 py-1 bg-bgColor text-xs uppercase tracking-wide"
-          >
-            check detail
-          </button>
+          <img
+            class="rounded"
+            :src="`${product.imageUrl}`"
+            :alt="`${product.title}`"
+          />
         </router-link>
+        <div class="mt-3 border-t">
+          <div class="w-full mt-3 font-serif capitalize text-lg">
+            {{ product.title }}
+          </div>
+          <div class="w-full mt-0 xm-auto font-sans text-sm text-gray-500">
+            ${{ product.price }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
-    return {
-      productList: JSON.parse(this.$route.query.productList),
-      categoryTarget: this.$route.query.cate,
-    };
+    return {};
   },
   computed: {
+    categoryTarget() {
+      return this.$route.query.cate;
+    },
     filterProductList() {
-      return this.productList.filter((product) => {
+      return this.$store.state.products.filter((product) => {
+        // console.log("ByCate", this.categoryTarget);
+        window.scrollTo(0, 0);
+
         return (
           product.content !== "inspiration" &&
           product.is_enabled == 1 &&
@@ -62,24 +74,10 @@ export default {
     },
   },
   methods: {
-    // getProducts() {
-    //   const api = `https://vue-course-api.hexschool.io/api/cclin/products/all`;
-    //   const vm = this;
-    //   vm.isLoading = true;
-    //   this.$http.get(api).then((response) => {
-    //     // console.log('getProducts', response.data)
-    //     vm.isLoading = false;
-    //     vm.products = response.data.products;
-    //   });
-    // },
-    // changeCategory(item) {
-    //   this.categoryTarget = item;
-    // },
+    ...mapActions(["getProducts"]),
   },
   created() {
-    // this.getProducts();
+    this.getProducts();
   },
 };
 </script>
-
-<style scoped></style>

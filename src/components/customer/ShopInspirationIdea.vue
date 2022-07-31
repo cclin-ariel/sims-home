@@ -3,7 +3,7 @@
     <div
       class="w-full sm:w-10/12 flex justify-center mx-auto mt-12 text-2xl font-mono uppercase"
     >
-      Inspiration of {{ categoryTarget }}
+      Inspiration of {{ inspirationTarget }}
     </div>
     <div
       class="w-10/12 max-w-180px tracking-wide flex justify-center px-1 sm:px-6 mx-auto mt-8 font-serif"
@@ -18,7 +18,7 @@
       >
         <li
           class="btn btn-outline-primary btn-sm border py-2 px-4 md:mx-2 border uppercase rounded-full sm:mb-5 hover:shadow"
-          v-for="item in categories"
+          v-for="item in categoriesOfInspiration"
           :key="item.id"
         >
           <button class="uppercase" @click="changeCategory(item)">
@@ -34,7 +34,9 @@
         :key="product.id"
         class="mx-5 my-5 md:my-10"
       >
-        <div class="relative my-12 mx-3 w-11/12 sm:min-w-10/12 max-w-2xl mx-auto">
+        <div
+          class="relative my-12 mx-3 w-11/12 sm:min-w-10/12 max-w-2xl mx-auto"
+        >
           <img class="rounded" :src="product.imageUrl" alt="Interior Idea" />
           <router-link
             :to="{
@@ -60,38 +62,38 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
-  components: {},
   data() {
     return {
-      productList: JSON.parse(this.$route.params.productList),
-      categories: JSON.parse(this.$route.params.categoriesData),
-      categoryTarget: this.$route.params.cate,
+      productList: this.$store.state.products,
+      inspirationTarget: this.$route.params.inspirationTarget,
     };
   },
   created() {
-    // if (this.$route.params.cate) {
-    //   this.categoryTarget = this.$route.params.cate;
-    // } else {
-    //   this.categoryTarget = "bedroom";
-    // }
-
-    console.log(this.productList, this.categoryTarget);
+    this.getProducts();
+    window.scrollTo(0, 0);
   },
   computed: {
+    categoriesOfInspiration() {
+      return this.$store.state.categoriesOfInspiration;
+    },
     filterProductList() {
-      return this.productList.filter((product) => {
+      return this.$store.state.products.filter((product) => {
         return (
           product.is_enabled == 1 &&
           product.content === "inspiration" &&
-          product.category === this.categoryTarget
+          product.category === this.inspirationTarget
         );
       });
     },
   },
   methods: {
+    ...mapActions(["getProducts"]),
+
     changeCategory(item) {
-      this.categoryTarget = item;
+      this.inspirationTarget = item;
     },
   },
 };

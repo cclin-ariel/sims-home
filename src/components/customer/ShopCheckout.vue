@@ -1,16 +1,17 @@
 <template>
   <div class="my-5 row justify-content-center">
     <form class="col-md-6" @submit.prevent="payOrder">
-      <table class="table">
-        <thead>
-          <th>品名</th>
-          <th>數量</th>
-          <th>單價</th>
+      <table class="table-fixed w-full max-w-5xl px-1 mt-5">
+        <thead class="py-8">
+          <th>Product</th>
+          <th>QTY</th>
+          <th>Price</th>
         </thead>
-        <tbody>
-          <tr v-for="item in order.products" :key="item.id">
-            <td class="align-middle">{{ item.product.title }}</td>
-            <td class="align-middle">
+        <tbody class="py-2 mx-auto font-mono">
+          <tr v-for="item in order.products" :key="item.id" class="border-t-2">
+            <td class="align-middle text-center">sssss</td>
+            <td class="align-middle text-center">{{ item.product.title }}</td>
+            <td class="align-middle text-center">
               {{ item.qty }}
             </td>
             <td class="align-middle text-right">{{ item.final_total }}</td>
@@ -18,85 +19,89 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2" class="text-right">總計</td>
+            <td colspan="2" class="text-right">Total</td>
             <td class="text-right">{{ order.total }}</td>
           </tr>
         </tfoot>
       </table>
 
-      <table class="table">
-        <tbody>
-          <tr>
-            <th width="100">Email</th>
-            <td>{{ order.user.email }}</td>
+      <table class="table-fixed w-full max-w-5xl px-1 mt-5">
+        <tbody class="py-2">
+          <tr class="py-2">
+            <th class="w-3/12">Email</th>
+            <td class="w-9/12">{{ order.user.email }}</td>
           </tr>
-          <tr>
-            <th>姓名</th>
+          <tr class="py-2">
+            <th>Name</th>
             <td>{{ order.user.name }}</td>
           </tr>
-          <tr>
-            <th>收件人電話</th>
+          <tr class="py-2">
+            <th>Tel</th>
             <td>{{ order.user.tel }}</td>
           </tr>
-          <tr>
-            <th>收件人地址</th>
+          <tr class="py-2">
+            <th>Add</th>
             <td>{{ order.user.address }}</td>
           </tr>
-          <tr>
-            <th>付款狀態</th>
+          <tr class="py-2">
+            <th>Payment status</th>
             <td>
-              <span v-if="!order.is_paid">尚未付款</span>
-              <span v-else class="text-success">付款完成</span>
+              <span v-if="!order.is_paid">Outstanding Payment</span>
+              <span v-else class="text-success">Payment confirmation</span>
             </td>
           </tr>
         </tbody>
       </table>
       <div class="text-right" v-if="order.is_paid === false">
-        <button class="btn btn-danger">確認付款去</button>
+        <button
+          class="rounded text-bgColor bg-secondaryColor py-1.5 px-4 hover:bg-opacity-80"
+        >
+          Proceed to Checkout
+        </button>
       </div>
     </form>
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
-      orderId: '',
+      orderId: "",
       order: {
-        user: {}
-      }
-    }
+        user: {},
+      },
+    };
   },
   methods: {
-    getOrder () {
-      const vm = this
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order/${vm.orderId}`
-      vm.isLoading = true
-      this.$http.get(api).then(response => {
-        vm.order = response.data.order
-        console.log('getOrder', response.data.order)
-        vm.isLoading = false
-      })
+    getOrder() {
+      const vm = this;
+      const api = `https://vue-course-api.hexschool.io/api/cclin/order/${vm.orderId}`;
+      vm.isLoading = true;
+      this.$http.get(api).then((response) => {
+        vm.order = response.data.order;
+        console.log("getOrder", response.data.order);
+        // vm.isLoading = false
+      });
     },
-    payOrder () {
-      const vm = this
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/pay/${vm.orderId}`
-      vm.isLoading = true
-      this.$http.post(api).then(response => {
+    payOrder() {
+      const vm = this;
+      const api = `https://vue-course-api.hexschool.io/api/cclin/pay/${vm.orderId}`;
+      // vm.isLoading = true
+      this.$http.post(api).then((response) => {
         // vm.order = response.data.order
-        console.log('payOrder', response.data.success)
+        console.log("payOrder", response.data.success);
         if (response.data.success) {
-          vm.getOrder()
+          vm.getOrder();
         }
-        vm.isLoading = false
-        vm.$router.push(`/customer_orders/`)
-      })
-    }
+        // vm.isLoading = false
+        vm.$router.push(`/customer_orders/`);
+      });
+    },
   },
-  created () {
-    this.orderId = this.$route.params.orderId // 'orderId' = the var in the path
-    // console.log(this.orderId)
-    this.getOrder()
-  }
-}
+  created() {
+    this.orderId = this.$route.params.orderId; // 'orderId' = the var in the path
+    console.log(this.orderId);
+    this.getOrder();
+  },
+};
 </script>

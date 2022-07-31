@@ -17,6 +17,7 @@ import ShopProduct from "../components/customer/ShopProduct.vue";
 import ShopCart from "../components/customer/ShopCart";
 import ShopCheckout from "../components/customer/ShopCheckout";
 
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -71,7 +72,7 @@ const routes = [
         component: ShopInspirationIdea,
       },
       {
-        path: "shop_by_category",
+        path: "shop_by_category/",
         name: "ShopByCategory",
         component: ShopByCategory,
       },
@@ -98,7 +99,7 @@ const routes = [
         component: ShopCart,
       },
       {
-        path: "shop_checkout/:orderId",
+        path: "/sims_home/shop_checkout/",
         name: "ShopCheckout",
         component: ShopCheckout,
       },
