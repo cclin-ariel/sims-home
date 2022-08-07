@@ -151,8 +151,8 @@
               <div class="w-8/12 sm:w-full">
                 <img
                   class="block w-full max-w-xs rounded sm:flex sm:justify-center"
-                  src="product.imageUrl"
-                  alt="image"
+                  :src="product.imageUrl"
+                  :alt="product.title"
                 />
               </div>
               <div class="pl-3 sm:pl-5 pt-2">

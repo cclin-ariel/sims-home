@@ -16,6 +16,7 @@ import ShopByKeyword from "../components/customer/ShopByKeyword.vue";
 import ShopProduct from "../components/customer/ShopProduct.vue";
 import ShopCart from "../components/customer/ShopCart";
 import ShopCheckout from "../components/customer/ShopCheckout";
+import ShopOrderConform from "../components/customer/ShopOrderConform";
 
 
 Vue.use(VueRouter);
@@ -102,6 +103,11 @@ const routes = [
         path: "/sims_home/shop_checkout/",
         name: "ShopCheckout",
         component: ShopCheckout,
+      },
+      {
+        path: "/sims_home/shop_orderConform/",
+        name: "ShopOrderConform",
+        component: ShopOrderConform,
       },
     ],
   },

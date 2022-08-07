@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen">
-    <!-- <loading :active.sync="isLoading" /> -->
     <div
       class="w-11/12 lg:w-10/12 max-w-screen-2xl mx-auto pt-16 pb-6 pl-1 text-2xl font-serif"
     >
@@ -344,7 +343,6 @@ export default {
       const vm = this;
       const api = `https://vue-course-api.hexschool.io/api/cclin/order`;
       const order = vm.form;
-      vm.isLoading = true;
       this.$http.post(api, { data: order }).then((response) => {
         console.log("createOrder", response);
         if (response.data.success) {
