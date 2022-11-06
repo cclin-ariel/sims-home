@@ -24,7 +24,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "*",
-    redirect: "login", // path
+    redirect: "/sims_home", // path
   },
   {
     path: "/login",
