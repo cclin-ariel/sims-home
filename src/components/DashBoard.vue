@@ -10,8 +10,8 @@
   </div>
 </template>
 <script>
-import Header from "@/Header.vue";
-import Sidebar from "@/Sidebar.vue";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 export default {
   components: {
     Header,
