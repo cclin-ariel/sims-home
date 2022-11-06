@@ -7,7 +7,14 @@
       <div class="text-sm">
         <router-link to="/admin/products">
           <div
-            class="bg-gray-500 p-2 rounded mt-2 cursor-pointer hover:bg-gray-400"
+            class="
+              bg-gray-500
+              p-2
+              rounded
+              mt-2
+              cursor-pointer
+              hover:bg-gray-400
+            "
           >
             <span data-feather="file-text"></span>
             <i class="fas fa-box-open"></i>
@@ -16,7 +23,14 @@
         </router-link>
         <router-link to="/admin/coupon_list" class="nav-link" href="#">
           <div
-            class="bg-gray-500 p-2 rounded mt-2 cursor-pointer hover:bg-gray-400"
+            class="
+              bg-gray-500
+              p-2
+              rounded
+              mt-2
+              cursor-pointer
+              hover:bg-gray-400
+            "
           >
             <span data-feather="file-text"></span>
             <i class="fas fa-ticket-alt"></i>
@@ -25,7 +39,14 @@
         </router-link>
         <router-link to="/admin/order_list">
           <div
-            class="bg-gray-500 p-2 rounded mt-2 cursor-pointer hover:bg-gray-400"
+            class="
+              bg-gray-500
+              p-2
+              rounded
+              mt-2
+              cursor-pointer
+              hover:bg-gray-400
+            "
           >
             <span data-feather="file-text"></span>
             <i class="far fa-list-alt"></i>
@@ -40,7 +61,14 @@
       <div class="text-sm">
         <router-link to="/sims_home">
           <div
-            class="bg-gray-500 p-2 rounded mt-2 cursor-pointer hover:bg-gray-400"
+            class="
+              bg-gray-500
+              p-2
+              rounded
+              mt-2
+              cursor-pointer
+              hover:bg-gray-400
+            "
           >
             <span data-feather="file-text"></span>
             <i class="fas fa-store"></i> Official Release
