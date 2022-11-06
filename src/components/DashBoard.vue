@@ -4,14 +4,14 @@
     <div class="flex w-full sideBar-height">
       <Sidebar />
       <section class="w-full h-full px-4 pt-4">
-        <router-view  />
+        <router-view />
       </section>
     </div>
   </div>
 </template>
 <script>
-import Header from "./Header.vue";
-import Sidebar from "./Sidebar.vue";
+import Header from "@/Header.vue";
+import Sidebar from "@/Sidebar.vue";
 export default {
   components: {
     Header,
